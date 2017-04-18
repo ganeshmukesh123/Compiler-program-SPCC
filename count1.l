@@ -1,29 +1,28 @@
 %{
 #include<stdio.h>
-int cc=0,lc=0,spc=0,wc=0;
+int wc = 0, cc = 0, spc = 0, lc = 0;
 %}
-WORD [^\t\n,\.:]+
+WORD[^ \t\n,.:]+
+BLANK [ ]
 EOL [\n]
-BLANK []
 %%
-{WORD} {wc++;cc=cc+yyleng;}
-{EOL} {lc++;}
 {BLANK} {spc++;}
-.{cc++;}
+{EOL} {lc++;}
+{WORD} {wc++;cc=cc+yyleng;}
 %%
 int yywrap()
 {
 return 1;
 }
-int main(int argc,char *argv[])
+int main(int argc, char *argv[])
 {
 if(argc!=2)
 {
-printf("ERROR");
+printf("Error!!! Hey There");
 exit(0);
 }
-yyin=fopen(argv[1],"r");
+yyin = fopen(argv[1],"r");
 yylex();
-printf("No.of Words are:%d\n No. of spaces are:%d\n No.of character are:%d\n No. of lines are:%d",wc,spc,cc,lc);
+printf("NO of Words =%d \nNO of Spaces =%d \nNO of Characters =%d \nNO of Lines =%d\n",wc, spc, cc, lc);
 return 0;
 }
